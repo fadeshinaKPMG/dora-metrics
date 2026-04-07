@@ -8,7 +8,7 @@ PAT = "4XfMeCrdBmD7CDFKEbfNMwUdoIgAJSWqjYAh0xNBa9nnCCZCAKVgJQQJ99CDACAAAAAm7ZkMA
 auth = base64.b64encode(f":{PAT}".encode()).decode()
 headers = {"Authorization": f"Basic {auth}", "Content-Type": "application/json"}
 
-# ── Fetch data ────────────────────────────────────────────────────────────────
+# ── Fetch data! ────────────────────────────────────────────────────────────────
 def get_projects():
     url = f"https://dev.azure.com/{ORGANIZATION}/_apis/projects?api-version=7.1-preview.4"
     r = requests.get(url, headers=headers)
