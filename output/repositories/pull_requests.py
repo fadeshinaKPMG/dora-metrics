@@ -3,7 +3,7 @@ import pandas as pd
 import base64
 
 # Azure DevOps credentials
-organization = "DigitalFactoryOrganisation"
+organization = ""
 pat = ""
 
 # API URL for projects
@@ -75,3 +75,4 @@ for _, project in projects.iterrows():
         
 pull_requests_df = pd.DataFrame(all_pull_requests)
 pull_requests_df
+print(pull_requests_df.head())

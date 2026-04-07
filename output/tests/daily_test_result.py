@@ -3,7 +3,7 @@ import pandas as pd
 import base64
 
 # Azure DevOps credentials
-organization = "DigitalFactoryOrganisation"
+organization = ""
 pat = ""
 
 # API URL for projects

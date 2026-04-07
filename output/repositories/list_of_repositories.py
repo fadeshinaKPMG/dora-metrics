@@ -3,7 +3,7 @@ import pandas as pd
 import base64
 
 # Azure DevOps credentials
-organization = "DigitalFactoryOrganisation"
+organization = ""
 pat = ""
 
 # API URL for projects
@@ -39,7 +39,6 @@ def get_repositories(org, project, headers):
 all_repositories = []
 for _, project in projects.iterrows():  
     project_name = project["ProjectName"]
-    print(f"Fetching repositories for project: {project_name}")
     repositories = get_repositories(organization, project_name, headers)
     for repo in repositories:
         repo_id = repo["id"]

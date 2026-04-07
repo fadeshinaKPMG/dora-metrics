@@ -3,7 +3,7 @@ import pandas as pd
 import base64
 
 # Azure DevOps credentials
-organization = "DigitalFactoryOrganisation"
+organization = ""
 pat = ""
 
 # API URL for projects
@@ -77,3 +77,4 @@ for project in projects["ProjectName"]:
 
 pipeline_runs_df = pd.DataFrame(all_runs)
 pipeline_runs_df
+print(pipeline_runs_df.head())

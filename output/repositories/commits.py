@@ -3,7 +3,7 @@ import pandas as pd
 import base64
 
 # Azure DevOps credentials
-organization = "DigitalFactoryOrganisation"
+organization = ""
 pat = ""
 
 # API URL for projects
@@ -48,7 +48,6 @@ def get_commits(org, project, repo_id, headers):
 all_commits = []
 for _, project in projects.iterrows():  
     project_name = project["ProjectName"]
-    print(f"Fetching repositories for project: {project_name}")
     repositories = get_repositories(organization, project_name, headers)
     for repo in repositories:
         repo_id = repo["id"]
@@ -58,16 +57,9 @@ for _, project in projects.iterrows():
 
             all_commits.append({
                 "ProjectName": project_name,
-                "RepositoryId": repo_id,
-                "RepositoryName": repo_name,
-                "CommitId": commit.get("commitId"),
-                "Author": commit.get("author", {}).get("name"),
                 "Date": commit.get("author", {}).get("date"),
-                "Comment": commit.get("comment"),
-                "Additions": commit.get("changeCounts", {}).get("Add"),
-                "Deletions": commit.get("changeCounts", {}).get("Delete"),
-                "Editions": commit.get("changeCounts", {}).get("Edit"),
             })
         
 commits_df = pd.DataFrame(all_commits)
 commits_df
+print(commits_df)

@@ -3,7 +3,7 @@ import pandas as pd
 import base64
 
 # Azure DevOps credentials
-organization = "DigitalFactoryOrganisation"
+organization = ""
 pat = ""
 
 # API URL for projects
@@ -21,6 +21,7 @@ response = requests.get(projects_url, headers=headers)
 
 if response.status_code != 200:
     print("Failed to fetch projects:", response.status_code, response.text)
+    print(response.status_code)
     exit()
     
 data = response.json()
@@ -71,11 +72,11 @@ pipeline_runs_df = pd.DataFrame(all_runs)
 
 
 # Get timeline for a specific run
-def get_run_timeline(org, project, run_id, headers):
-    url = f"https://dev.azure.com/{org}/{project}/_apis/build/builds/{run_id}/timeline?api-version=7.1"
+def get_pipeline_build(org, project, build_id, headers):
+    url = f"https://dev.azure.com/{org}/{project}/_apis/build/builds/{build_id}/timeline?api-version=7.1"
     response = requests.get(url, headers=headers)
     if response.status_code != 200:
-        print(f"Failed to fetch timeline for run {run_id}:", response.status_code, response.text)
+        print(f"Failed to fetch timeline for run {build_id}:", response.status_code, response.text)
         return []
     return response.json().get("records", [])
 
@@ -105,7 +106,7 @@ def extract_timeline_records(run, records):
 
 timeline_rows = []
 for _, run in pipeline_runs_df.iterrows():
-    records = get_run_timeline(organization, run["ProjectName"], run["RunId"], headers)
+    records = get_pipeline_build(organization, run["ProjectName"], run["RunId"], headers)
     timeline_rows.extend(extract_timeline_records(run, records))
 
 timeline_df = pd.DataFrame(timeline_rows)
